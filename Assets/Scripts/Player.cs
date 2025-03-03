@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
 
     private bool isDead;
     [HideInInspector] public bool playerUnlocked;
+    [HideInInspector] public bool extraLife;
 
     [Header("Knockback info")]
     [SerializeField] private Vector2 knockbackDir;
@@ -84,6 +85,8 @@ public class Player : MonoBehaviour
         CheckCollision();
         AnimatorControllers();
 
+        extraLife = moveSpeed >= maxSpeed;
+
         slideTimeCounter-=Time.deltaTime;
         slideCooldownCounter-=Time.deltaTime;
 
@@ -116,7 +119,7 @@ public class Player : MonoBehaviour
 
     public void Damage()
     {
-        if (moveSpeed >= maxSpeed)
+        if (extraLife)
             Knockback();
         else
         {
@@ -338,7 +341,7 @@ public class Player : MonoBehaviour
         ceillingDetected = Physics2D.Raycast(transform.position, Vector2.up, ceillingCheckDistance, whatIsGround);
         wallDetected = Physics2D.BoxCast(wallCheck.position, wallCheckSize,0,Vector2.zero,0,whatIsGround);
 
-        Debug.Log(ledgeDetected);
+        //Debug.Log(ledgeDetected);
     }
     private void OnDrawGizmos() {
         Gizmos.DrawLine(transform.position, new Vector2(transform.position.x, transform.position.y - groundCheckDistance));
