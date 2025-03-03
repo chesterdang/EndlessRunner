@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Trap : MonoBehaviour
+public class TriggerDeadZone : MonoBehaviour
 {
     private void OnTriggerEnter2D(Collider2D collision) 
     {
-        if(collision.GetComponent<Player>() != null)
-            collision.GetComponent<Player>().Damage();
+        if (collision.GetComponent<Player>() != null)
+            GameManager.instance.RestartLevel();    
     }
 }
