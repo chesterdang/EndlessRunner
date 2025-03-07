@@ -1,19 +1,30 @@
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class UI_Main : MonoBehaviour
 {
     public bool gamePaused;
+    private bool gameMuted;
     
     [SerializeField] private GameObject mainMenu;
+    [SerializeField] private GameObject endGame;
+    [Space]
 
     [SerializeField] private TextMeshProUGUI lastScoreText;
     [SerializeField] private TextMeshProUGUI highScoreText;
     [SerializeField] private TextMeshProUGUI coinsText;
+
+    [Header("Volume Info")]
+    [SerializeField] private UI_VolumeSlider[] slider;
+    [SerializeField] private Image muteIcon;
+    [SerializeField] private Image inGameMuteIcon;
     private void Start()
     {
+        for (int i = 0; i < slider.Length; i++)
+        {
+            slider[i].SetupSlider();
+        }
         SwitchMenuTo(mainMenu);
         Time.timeScale = 1;
 
@@ -28,10 +39,33 @@ public class UI_Main : MonoBehaviour
         }
         uiMenu.SetActive(true);
 
+        AudioManager.instance.PlaySFX(4);
         coinsText.text = PlayerPrefs.GetInt("Coins").ToString("#,#");
     }
 
-    public void StartGameButton() => GameManager.instance.UnlockPlayer();
+    public void MuteButton()
+    {
+        gameMuted = !gameMuted; //Works like a switcher
+
+        if (gameMuted)
+        {
+            muteIcon.color = new Color(1,1,1, 0.5f);
+            AudioListener.volume = 0;
+        }
+        else
+        {
+            muteIcon.color = Color.white;
+            AudioListener.volume = 1;
+        }
+    }
+
+    public void StartGameButton()
+    {
+        muteIcon = inGameMuteIcon;
+        if(gameMuted)
+            muteIcon.color = new Color(1,1,1, 0.5f);
+        GameManager.instance.UnlockPlayer();   
+    } 
 
     public void PauseGameButton()
     {
@@ -48,4 +82,9 @@ public class UI_Main : MonoBehaviour
     }
 
     public void RestartGameButton() => GameManager.instance.RestartLevel();
+
+    public void OpenEndGameUI()
+    {
+        SwitchMenuTo(endGame);
+    }
 }

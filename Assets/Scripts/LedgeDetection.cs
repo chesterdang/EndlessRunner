@@ -8,13 +8,14 @@ public class LedgeDetection : MonoBehaviour
     [SerializeField] private LayerMask whatIsGround;
     [SerializeField] private Player player;
 
-    private bool canDetect;
+
+    private bool canDetect=true;
     // private BoxCollider2D boxCd => GetComponent<BoxCollider2D>();
 
     private void Update() 
     {
         if(canDetect)
-            player.ledgeDetected = Physics2D.OverlapCircle(transform.position, radius, whatIsGround);    
+            player.ledgeDetected = Physics2D.OverlapCircle(transform.position, radius, whatIsGround);  
     }
 
     private void OnTriggerEnter2D(Collider2D collision) 

@@ -1,4 +1,4 @@
-using System;
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -129,15 +129,18 @@ public class Player : MonoBehaviour
 
     private IEnumerator Die()
     {
+        AudioManager.instance.PlaySFX(3);
         isDead = true;
         canBeKnocked = false;
         rb.velocity = knockbackDir;
         anim.SetBool("isDead", true);
 
+        //Slow motion activated
+        Time.timeScale = 0.6f;
+
         yield return new WaitForSeconds(0.5f);
         rb.velocity = new Vector2(0, 0);
-        yield return new WaitForSeconds(1f);
-        GameManager.instance.RestartLevel();
+        GameManager.instance.GameEnded();
     }
 
     private IEnumerator Invincivility()
@@ -246,12 +249,19 @@ public class Player : MonoBehaviour
         canClimb = false;
         rb.gravityScale = 5;
         transform.position = climbOverPosition;
-        Invoke("AllowLedgeGrab", 0.1f);
+        canGrabLedge = false;
+        Invoke("AllowLedgeGrab", 1f);
         
     }
 
     private void AllowLedgeGrab() => canGrabLedge = true;
     #endregion
+
+    private void TemporaryDeactivateClimb()
+    {
+        canGrabLedge = false;
+        Invoke("AllowLedgeGrab", 1f);
+    }
 
     private void CheckForSlideCancel()
     {
@@ -259,6 +269,15 @@ public class Player : MonoBehaviour
             isSliding = false;
     }
 
+    /* private void SetCanGrabLedgeFalse()
+    {
+        canGrabLedge = false;
+    }
+
+    private void SetCanGrabLedgeTrue()
+    {
+        canGrabLedge = true;
+    } */
     private void SetupMovement()
     {
         if (wallDetected)
@@ -295,10 +314,12 @@ public class Player : MonoBehaviour
         {
 
             rb.velocity = new Vector2(rb.velocity.x, jumpForce);
+            AudioManager.instance.PlaySFX(Random.Range(1, 2));
         }
         else if (canDoubleJump)
         {
             canDoubleJump = false;
+            AudioManager.instance.PlaySFX(Random.Range(1, 2));
             rb.velocity = new Vector2(rb.velocity.x, doubleJumpForce);
         }
     }
