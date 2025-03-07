@@ -11,9 +11,9 @@ TagManager:
   - Ground
   - Water
   - UI
-  - 
-  - 
-  - 
+  - Player
+  - Traps
+  - Coins
   - 
   - 
   - 
@@ -55,4 +55,7 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 4101898939
+    locked: 0
+  - name: Coins
+    uniqueID: 2970292089
     locked: 0
