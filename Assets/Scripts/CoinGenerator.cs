@@ -11,25 +11,21 @@ public class CoinGenerator : MonoBehaviour
 
     [SerializeField] private SpriteRenderer[] coinImg;
 
-
-
-    // Start is called before the first frame update
     void Start()
     {
         for (int i = 0; i < coinImg.Length; i++)
         {
-            coinImg[i].sprite = null;           
+            coinImg[i].sprite = null;
         }
 
-        amountOfCoins = Random.Range(minCoins,maxCoins);
+        amountOfCoins = Random.Range(minCoins, maxCoins);
         int additionalOffset = amountOfCoins / 2;
 
         for (int i = 0; i < amountOfCoins; i++)
-        {   
+        {
             Vector3 offset = new Vector2(i - additionalOffset, 0);
-            Instantiate(coinPrefab, transform.position + offset, Quaternion.identity, transform);
+            Instantiate(coinPrefab, transform.position + offset, Quaternion.identity,transform);
         }
-        
     }
 
 }

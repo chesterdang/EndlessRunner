@@ -1,6 +1,6 @@
+using DigitalRuby.RainMaker;
 using System.Collections;
 using System.Collections.Generic;
-using DigitalRuby.RainMaker;
 using UnityEngine;
 
 public class RainController : MonoBehaviour
@@ -23,8 +23,13 @@ public class RainController : MonoBehaviour
 
     private void Update()
     {
-        rainCheckTimer -=Time.deltaTime;
+        rainCheckTimer -= Time.deltaTime;
         rainController.RainIntensity = intensity;
+
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            canChangeIntensity = true;
+        }
 
         CheckForRain();
 
@@ -34,24 +39,26 @@ public class RainController : MonoBehaviour
 
     private void CheckForRain()
     {
-        if(rainCheckTimer < 0)
+        if (rainCheckTimer < 0)
         {
             rainCheckTimer = rainCheckCooldown;
             canChangeIntensity = true;
 
-            if(Random.Range(0,100) < chanceToRain)
+
+            if (Random.Range(0, 100) < chanceToRain)
                 targetIntensity = Random.Range(minValue, maxValue);
             else
                 targetIntensity = 0;
         }
     }
+
     private void ChangeIntensity()
     {
-        if(intensity < targetIntensity)
+        if (intensity < targetIntensity)
         {
             intensity += changeRate * Time.deltaTime;
 
-            if(intensity >= targetIntensity)
+            if (intensity >= targetIntensity)
             {
                 intensity = targetIntensity;
                 canChangeIntensity = false;
@@ -61,7 +68,8 @@ public class RainController : MonoBehaviour
         if (intensity > targetIntensity)
         {
             intensity -= changeRate * Time.deltaTime;
-            if(intensity <= targetIntensity)
+
+            if (intensity <= targetIntensity)
             {
                 intensity = targetIntensity;
                 canChangeIntensity = false;

@@ -14,8 +14,8 @@ TagManager:
   - Player
   - Traps
   - Coins
-  - Post Processing
-  - Background
+  - Enemy
+  - 
   - 
   - 
   - 
@@ -42,20 +42,17 @@ TagManager:
     uniqueID: 0
     locked: 0
   - name: Background
-    uniqueID: 1228785581
+    uniqueID: 4118125155
     locked: 0
   - name: Platform
-    uniqueID: 3427995767
+    uniqueID: 1677681603
     locked: 0
   - name: Collectable
-    uniqueID: 543449519
+    uniqueID: 2557056627
     locked: 0
   - name: Enemy
-    uniqueID: 3898150419
+    uniqueID: 321855215
     locked: 0
   - name: Player
-    uniqueID: 4101898939
-    locked: 0
-  - name: Coins
-    uniqueID: 2970292089
+    uniqueID: 3667014643
     locked: 0

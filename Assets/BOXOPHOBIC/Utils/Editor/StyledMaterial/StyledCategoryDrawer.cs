@@ -8,8 +8,6 @@ namespace Boxophobic.StyledGUI
 {
     public class StyledCategoryDrawer : MaterialPropertyDrawer
     {
-        public bool isEnabled = true;
-
         public string category;
         public float top;
         public float down;
@@ -104,23 +102,23 @@ namespace Boxophobic.StyledGUI
                 isColapsable = true;
             }
 
-            //bool isEnabled = true;
+            bool isEnabled = true;
 
-            //if (prop.floatValue < 0.5f)
-            //{
-            //    isEnabled = false;
-            //}
+            if (prop.floatValue < 0.5f)
+            {
+                isEnabled = false;
+            }
 
-            isEnabled = StyledGUI.DrawInspectorCategory(category, isEnabled, isColapsable, top, down);
+            isEnabled = StyledGUI.DrawInspectorCategory(category, isEnabled, top, down, isColapsable);
 
-            //if (isEnabled)
-            //{
-            //    prop.floatValue = 1;
-            //}
-            //else
-            //{
-            //    prop.floatValue = 0;
-            //}
+            if (isEnabled)
+            {
+                prop.floatValue = 1;
+            }
+            else
+            {
+                prop.floatValue = 0;
+            }
         }
     }
 }

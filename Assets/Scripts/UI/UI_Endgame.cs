@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class UI_Endgame : MonoBehaviour
+public class UI_EndGame : MonoBehaviour
 {
     [SerializeField] private TextMeshProUGUI distance;
     [SerializeField] private TextMeshProUGUI coins;
     [SerializeField] private TextMeshProUGUI score;
-
-    // Start is called before the first frame update
-    public void Start()
+    void Start()
     {
         GameManager manager = GameManager.instance;
 
@@ -27,6 +25,4 @@ public class UI_Endgame : MonoBehaviour
         coins.text = "Coins: " + manager.coins.ToString("#,#");
         score.text = "Score: " + manager.score.ToString("#,#");
     }
-
-
 }
